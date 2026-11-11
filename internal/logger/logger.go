@@ -1,0 +1,24 @@
+package logger
+
+import (
+	"fmt"
+	"io"
+	"log/slog"
+)
+
+func New(level, format string, w io.Writer) (*slog.Logger, error) {
+	var lvl slog.Level
+	if err := lvl.UnmarshalText([]byte(level)); err != nil {
+		return nil, fmt.Errorf("log level: %w", err)
+	}
+	opts := &slog.HandlerOptions{Level: lvl}
+
+	switch format {
+	case "json":
+		return slog.New(slog.NewJSONHandler(w, opts)), nil
+	case "text":
+		return slog.New(slog.NewTextHandler(w, opts)), nil
+	default:
+		return nil, fmt.Errorf("log format %q: must be json or text", format)
+	}
+}

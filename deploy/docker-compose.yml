@@ -1,0 +1,16 @@
+# Dev dependencies. edgeway itself runs on the host via `make run` for a fast edit loop.
+# SigNoz is installed separately from its official compose (see README).
+name: edgeway-dev
+
+services:
+  whoami-1:
+    image: traefik/whoami:v1.11.0
+    command: ["--name", "whoami-1"]
+    ports:
+      - "9001:80"
+
+  whoami-2:
+    image: traefik/whoami:v1.11.0
+    command: ["--name", "whoami-2"]
+    ports:
+      - "9002:80"

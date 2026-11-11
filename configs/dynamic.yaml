@@ -1,0 +1,14 @@
+# Dynamic config: routing rules. Hot reload arrives in v0.2; until then restart to apply.
+# Backends come from `make up` (deploy/docker-compose.yml).
+routers:
+  whoami:
+    entryPoints: [web]
+    rule: "PathPrefix(`/`)"
+    service: whoami
+
+services:
+  whoami:
+    loadBalancer:
+      servers:
+        - url: http://localhost:9001
+        - url: http://localhost:9002

@@ -1,0 +1,18 @@
+# Static config: read once at startup, restart to apply changes.
+log:
+  level: info   # debug | info | warn | error
+  format: text  # json | text
+
+entryPoints:
+  web:
+    address: ":8000"
+
+api:
+  address: ":8081"
+
+providers:
+  file:
+    path: configs/dynamic.yaml
+
+lifeCycle:
+  graceTimeout: 10s
